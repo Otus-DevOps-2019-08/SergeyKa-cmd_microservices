@@ -1,0 +1,10 @@
+{
+    "project_id": "project-123",
+    "source_image_family": "ubuntu-1604-lts",
+    "machine_type": "google machine type",
+    "image_description": "base image",
+    "disk_type": "pd-standard",
+    "disk_size": "10",
+    "network_project_id": "project-123-NIC0",
+    "tags": "server"
+}
