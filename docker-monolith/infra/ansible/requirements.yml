@@ -1,0 +1,7 @@
+---
+# Remote repository requirements
+- src: https://github.com/SergeyKa-cmd/Ansible-db-local.git
+  name: Ansible-db-local
+
+- src: jdauphant.nginx
+  version: v2.21.1
