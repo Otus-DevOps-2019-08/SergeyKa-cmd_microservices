@@ -1,0 +1,12 @@
+plugin: gcp_compute
+projects: 
+  - nostromo-253518
+regions:
+  - europe-west1
+hostnames:
+  - name
+filters:
+auth_kind: serviceaccount
+service_account_file: ~/.gsutil/Nostromo-e22cc8b27461.json
+compose:
+  ansible_host: networkInterfaces[0].accessConfigs[0].natIP
