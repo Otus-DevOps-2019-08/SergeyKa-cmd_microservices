@@ -68,8 +68,11 @@ ________________________________________________________________________________
   + Finally run containers for app:
     
     $ docker run -d --network=your-network-tag --network-alias=post_db --network-alias=comment_db mongo:latest
+    
     $ docker run -d --network=your-network-tag --network-alias=post your-dockerhub-login/post:1.0
+    
     $ docker run -d --network=your-network-tag --network-alias=comment your-dockerhub-login/comment:1.0
+    
     $ docker run -d --network=your-network-tag -p 9292:9292 your-dockerhub-login/ui:1.0
 
  ## App connectivity testing:
