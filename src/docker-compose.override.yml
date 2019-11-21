@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  ui:
+    volumes:
+      - "${UI_VOLUME_PATH}"
+    command: ["puma", "--debug", "-w", "2"]
+  post:
+    volumes:
+      - "${POST_VOLUME_PATH}"
+  comment:
+    volumes:
+      - "${COMMENT_VOLUME_PATH}"
+    command: ["puma", "--debug", "-w", "2"]
