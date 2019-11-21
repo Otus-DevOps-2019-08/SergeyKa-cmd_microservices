@@ -13,6 +13,4 @@ vault.key
 *.log
 *.pyc
 .molecule
-inspect_container.json
-inspect_image.json
 *.env
