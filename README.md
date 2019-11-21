@@ -4,6 +4,7 @@
   # 1. Docker: First look
   # 2. Docker: Containers & Images maintain
   # 3. Docker: Images & Microservices
+  # 4. Docker: Networking & Docker-compose implementation
 ______________________________________________________________
 ## 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
@@ -43,7 +44,7 @@ ________________________________________________________________________________
     $terraform apply
     
     $ansible-playbook playbooks/site.yml
-_____________________________________________________________________________________________________________________________
+_________________________________________________________________________________________________
 ## 3. Docker: Images & Microservices
 ### Main issue: Decomposition of application for microservice environment
 ### Additional task: Tuning current dockerfiles: changing network aliases; using Alpine Linux packages for post, comment and ui.
@@ -98,3 +99,50 @@ docker images
   + Ensure that your Monolith Reddit up and running http://:9292
   + [Monolith Reddit](http://35.195.87.92:9292/) - to test my solution
 __________________________________________________________________________________
+ # 4. Docker: Networking & Docker-compose implementation
+ ### Main issue: Network features discovering in docker, docker-compose implementation 
+ ### Additional task: Docker-compose-override file creation
+ ## System prerequisites:
+  + Connect to current running GCE instance using command:
+  
+    $ eval $(docker-machine env docker-host)
+ ## App testing:
+  + Clone current repository to your environment
+  + Ensure that your docker host up and running via terminal:
+
+    $ docker-machine ls
+  + Create docker container using network "none-driver":
+    
+    $ docker run -ti --rm --network none joffotron/docker-net-tools -c ifconfig
+  + Create docker container using network "host-driver":
+    
+    $ docker run -ti --rm --network host joffotron/docker-net-tools -c ifconfig
+  + Create docker container using network "bridge-driver":
+
+    $ docker network create reddit --driver bridge
+    
+    $ docker network create back_net --subnet=10.0.2.0/24
+    
+    $ docker network create front_net --subnet=10.0.1.0/24
+   + Connect containers to user-defined "front_net" network
+    
+    $ docker network connect front_net post
+    
+    $ docker network connect front_net comment
+  + Ensure that [Monolith Reddit](http://35.195.87.92:9292/) up and running
+  + Prepared for .env file with user-defined variables in docker-compose.yml file
+  + Prepared docker-compose.override.yml file that aoutomatically roll-out within docker-compose.yml file:
+  
+    $ docker-compose up -d
+  + Ensure that all containers are implemented by using docker-compose ps:
+  
+  ```docker-compose ps
+  Name                  Command             State           Ports         
+----------------------------------------------------------------------------
+src_comment_1   puma --debug -w 2             Up                            
+src_post_1      python3 post_app.py           Up                            
+src_post_db_1   docker-entrypoint.sh mongod   Up      27017/tcp             
+src_ui_1        puma --debug -w 2             Up      0.0.0.0:9292->9292/tcp
+ ```
+  + All docker-compose entity have project related pefix (at this point is "src_") which is the name of current project directory.
+_______________________________________________________________________________________________
