@@ -10,7 +10,7 @@ variables:
 
 before_script:
   - cd reddit
-  - bundle bigip_software_install
+  - bundle install
 
 build_job:
   stage: build
