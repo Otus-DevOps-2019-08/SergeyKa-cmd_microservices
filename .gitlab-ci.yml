@@ -16,8 +16,9 @@ before_script:
 
 build_job:
   stage: build
-  script:
-    - echo 'Building'
+  include: 'reddit/app.rb'
+  rspec:
+    script: echo 'Building'
 
 test_unit_job:
   stage: test
