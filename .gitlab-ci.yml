@@ -9,16 +9,21 @@ stages:
 
 variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
-
+services:
+  - docker:19.03.1-dind
 before_script:
   - cd reddit
   - bundle install
 
 build_job:
   stage: build
-  include: 'reddit/app.rb'
-  rspec:
-    script: echo 'Building'
+  only:
+    - master
+  script: 
+    - docker info
+    - docker build -t otus-reddit .
+    - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+    - docker push sergeykacmd/otus-reddit
 
 test_unit_job:
   stage: test
@@ -39,12 +44,13 @@ deploy_dev_job:
   environment:
     name: dev
     url: http://dev.example.com/
+
 branch review:
   stage: review
   script: echo "Deploy to $CI_ENVIRONMENT_SLUG"
   environment:
     name: branch/$CI_COMMIT_REF_NAME
-    url: http://$CI_ENVIRONMENT_SLUG.example.com
+    url: https://reddit-frontend-$CI_BUILD_REF_SLUG.test.otus.express42.io
   only:
     - branches
   except:
