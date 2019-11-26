@@ -198,7 +198,7 @@ ________________________________________________________________________________
    ```
   ## Additional task tips:
    + For reddit app implementation used this [Automatically build and push Docker images using GitLab CI manual](https://angristan.xyz/build-push-docker-images-gitlab-ci/) where decribed how to use DockerHub credentials in Gitlab:
-   ![alt text](/home/sergeyka/Desktop/variables.png)
+   ![Alt text](/home/sergeyka/Desktop/variables.png?raw=true "Title")
    + Placed code to .gitlab-ci.yml file in build stage section
    + Gitlab Runner configuration uses the .toml file [Gitlab Documentation](https://docs.gitlab.com/runner/configuration/advanced-configuration.html) for multitasking 
    + For automation deployment of numerous Gitlab Ci Runner we're used config.toml.example file (config.toml was excluded with .gitignore due to secret information) related to this [Manual](https://habr.com/en/post/449910/)
