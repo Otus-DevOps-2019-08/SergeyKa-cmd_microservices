@@ -1,10 +1,11 @@
 [![Build Status](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices)
 # SergeyKa-cmd_microservices
-## Contents:
-  # 1. Docker: First look
-  # 2. Docker: Containers & Images maintain
-  # 3. Docker: Images & Microservices
-  # 4. Docker: Networking & Docker-compose implementation
+### Contents:
+  ## 1. Docker: First look
+  ## 2. Docker: Containers & Images maintain
+  ## 3. Docker: Images & Microservices
+  ## 4. Docker: Networking & Docker-compose implementation
+  ## 5. Gitlab: Deployment & pipeline preparations
 ______________________________________________________________
 ## 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
@@ -146,3 +147,61 @@ src_ui_1        puma --debug -w 2             Up      0.0.0.0:9292->9292/tcp
  ```
   + All docker-compose entity have project related pefix (at this point is "src_") which is the name of current project directory.
 _______________________________________________________________________________________________
+  ## 5. Gitlab: Deployment & pipeline preparations
+  ### Main issue: Docker-based Gitlab deployment on GCP instance, pipeline implementation
+  ### Additional task: Design and implement scalable solution for Gitlab Runner in one configuration file & Chat Ops implement
+  ## System prerequisites:
+  + Prepare new instance using [gist](https://gist.githubusercontent.com/SergeyKa-cmd/b761cb0f4c1c9cb363600a177eebfb26/raw/7490234f952cad68a0df1756013ace6efb56f103/gistfile1.txt) from scrach and run it from terminal
+  + Connect to current running GCE instance using command:
+  
+    $ eval $(docker-machine env docker-host)
+    
+    $ docker-machine ssh docker-host
+  + Prepare docker environment on instance using snippet:
+  ```# mkdir -p /srv/gitlab/config /srv/gitlab/data /srv/gitlab/logs
+     # cd /srv/gitlab/
+     # touch docker-compose.yml
+  ```
+  + Fill out docker.compose.yml file on docker-host instance using this [gist](https://gist.github.com/Nklya/c2ca40a128758e2dc2244beb09caebe1) and run:
+  
+    $ docker-compose up -d
+  + Ensure that GCP instance up and running with Gitlab web interface http://<your-vm-ip>
+  
+  ## App testing:
+  + Clone current repository to your environment
+  + Ensure that GCP instance up and running with Gitlab web interface http://<your-vm-ip>
+  + Using SSH to docker-host run this [gist](https://gist.githubusercontent.com/SergeyKa-cmd/bc4035b974b0e07b62397dab2ad1bd2a/raw/7e422223e5fcaf82b389f6a856e1eadf70c64c04/Gitlab%2520Runner%2520registration) in terminal for Runner registration
+  + Second step to register Gitlab Runner interactively in terminal:
+  
+  ```root@gitlab-ci:~# docker exec -it gitlab-runner gitlab-runner register --run-untagged --locked=false
+     Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com/):
+      http://<YOUR-VM-IP>/
+      Please enter the gitlab-ci token for this runner:
+      <TOKEN>
+      Please enter the gitlab-ci description for this runner:
+      [38689f5588fe]: my-runner
+      Please enter the gitlab-ci tags for this runner (comma separated):
+      linux,xenial,ubuntu,docker
+      Please enter the executor:
+      docker
+      Please enter the default Docker image (e.g. ruby:2.1):
+      alpine:latest
+      Runner registered successfully.
+  ```    
+  + All further manipulations were done in .gitlab-ci.yml file where added and described stages:
+  ```stages:
+    - build
+    - test
+    - review
+    - stage
+    - production
+   ```
+  ## Additional task tips:
+   + For reddit app implementation used this [Automatically build and push Docker images using GitLab CI manual](https://angristan.xyz/build-push-docker-images-gitlab-ci/) where decribed how to use DockerHub credentials in Gitlab:
+   ![Alt text](/home/sergeyka/Desktop/variables.png?raw=true "Title")
+   + Placed code to .gitlab-ci.yml file in build stage section
+   + Gitlab Runner configuration uses the .toml file [Gitlab Documentation](https://docs.gitlab.com/runner/configuration/advanced-configuration.html) for multitasking 
+   + For automation deployment of numerous Gitlab Ci Runner we're used config.toml.example file (config.toml was excluded with .gitignore due to secret information) related to this [Manual](https://habr.com/en/post/449910/)
+   + For Chat Ops implementation (Gitlab+Slack) we're used this [Simple manual](https://docs.gitlab.com/ee/user/project/integrations/slack.html)
+   ___________________________________________________________________________________________________________________
+   

@@ -14,3 +14,4 @@ vault.key
 *.pyc
 .molecule
 *.env
+*.toml
