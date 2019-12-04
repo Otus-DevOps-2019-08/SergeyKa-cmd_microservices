@@ -1,5 +1,15 @@
 version: "3.3"
 services:
+  post_db:
+    image: mongo:3.2
+    volumes:
+      - post_db:/data/db
+    networks:
+      back_net:
+        aliases:
+          - comment_db
+          - post_db
+  
   prometheus:
     image: ${USER_NAME}/prometheus
     ports:
@@ -44,30 +54,6 @@ services:
        - back_net
        - prometheus_net
 
-  post_db:
-    image: mongo:3.2
-    volumes:
-      - post_db:/data/db
-    networks:
-      back_net:
-        aliases:
-          - comment_db
-  ui:
-    image: ${USER_NAME}/ui:${DIST_VERSION}
-    ports:
-      - ${DOCKER_HOST_PORT}:${DOCKER_APP_PORT}/tcp
-    networks:
-      - front_net
-  post:
-    image: ${USER_NAME}/post:${DIST_VERSION}
-    networks:
-      - back_net
-      - front_net
-  comment:
-    image: ${USER_NAME}/comment:${DIST_VERSION}
-    networks:
-      - back_net
-      - front_net
 volumes:
   post_db:
   prometheus_data:
