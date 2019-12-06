@@ -6,7 +6,8 @@
   ## 3. Docker: Images & Microservices
   ## 4. Docker: Networking & Docker-compose implementation
   ## 5. Gitlab: Deployment & pipeline preparations
-______________________________________________________________
+  ## 6. Monitoring: Prometheus configuring and deployment
+_______________________________________________________________________________________________________
 ## 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
 ### Additional task: docker container and docker image files comparison
@@ -204,4 +205,27 @@ ________________________________________________________________________________
    + For automation deployment of numerous Gitlab Ci Runner we're used config.toml.example file (config.toml was excluded with .gitignore due to secret information) related to this [Manual](https://habr.com/en/post/449910/)
    + For Chat Ops implementation (Gitlab+Slack) we're used this [Simple manual](https://docs.gitlab.com/ee/user/project/integrations/slack.html)
    ___________________________________________________________________________________________________________________
+   ## 6. Monitoring: Prometheus configuring and deployment
+  ### Main issue: Deployment Prometheus and monitoring implementation for Reddit microservices
+  ### Additional task:  Using custom exporters for metrics capturing & Prepare Makefile for services automation deployment
+  ## System prerequisites:
+  + Prepare firewall rules in GCE using terminal on local host:
+  
+    $ gcloud compute firewall-rules create prometheus-default --allow tcp:9090
+    
+    $ gcloud compute firewall-rules create puma-default --allow tcp:9292
+  + Use current running GCE instance using command:
+  
+    $ eval $(docker-machine env docker-host)
+    
+    $ docker-machine ssh docker-host
+  ## App testing:
+  + Clone current repository to your environment
+  + Fetch docker images from current GitHub repository using ```make``` command in your terminal
+  + Ensure that GCP instance with Prometheus up and running on http://your-vm-ip:9090
+  ## Additional task tips:
+   + For preparing Makefile use this [tutorial](http://rus-linux.net/nlib.php?name=/MyLDP/algol/gnu_make/gnu_make_3-79_russian_manual.html#SEC33)
+   + Information regarding how to use [Google Cloudprober](https://hub.docker.com/r/cloudprober/cloudprober)
+   + [Bitnami MongoDB exporter on DockerHub](https://hub.docker.com/r/bitnami/mongodb-exporter)
+   __________________________________________________________________________________________________________________________
    
