@@ -1,5 +1,5 @@
 #Define variables
-GCP_INSTANCE = gcp_deployment gcp_firewall
+GCP_INSTANCE = gcp_deployment
 BUILD_ALL = build_ui build_comment build_post build_prometheus build_cloudprober build_grafana build-alertmanager build-telegraf
 PUSH_TO = push_ui push_comment push_post push_prometheus push_cloudprober push_grafana push_alertmanager push_telegraf
 UP_SERVICE = dc_up_app dc_up_monitoring
@@ -10,16 +10,14 @@ gcp_deployment:
 	docker-machine create --driver google \
     --google-machine-image https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts \
     --google-machine-type n1-standard-1 \
+    --google-open-port 9090/tcp \
+    --google-open-port 5000/tcp \
+    --google-open-port 8080/tcp \
+    --google-open-port 3000/tcp \
     --google-address static-ip \
     --google-zone europe-west1-b \
 	docker-host 
 	echo 'Run - eval $$(docker-machine env docker-host)'
-.PHONY: gcp_firewall
-gcp_firewall:
-	gcloud compute firewall-rules create prometheus-default --allow tcp:9090
-	gcloud compute firewall-rules create post-default --allow tcp:5000
-	gcloud compute firewall-rules create grafana-default --allow tcp:3000
-	gcloud compute firewall-rules create cadvisor-default --allow tcp:8080
 #Build services
 build_ui:
 	cd src/ui && bash docker_build.sh
