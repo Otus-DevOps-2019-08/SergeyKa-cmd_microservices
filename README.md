@@ -7,6 +7,7 @@
   ## 4. Docker: Networking & Docker-compose implementation
   ## 5. Gitlab: Deployment & pipeline preparations
   ## 6. Monitoring: Prometheus configuring and deployment
+  ## 7. Monitoring: Monitoring system deployment & Alerting
 _______________________________________________________________________________________________________
 ## 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
@@ -228,4 +229,35 @@ ________________________________________________________________________________
    + Information regarding how to use [Google Cloudprober](https://hub.docker.com/r/cloudprober/cloudprober)
    + [Bitnami MongoDB exporter on DockerHub](https://hub.docker.com/r/bitnami/mongodb-exporter)
    __________________________________________________________________________________________________________________________
-   
+   ## 7. Monitoring: Monitoring system deployment & Alerting
+  ### Main issue: Monitoring systems implement: cAdvisor, Grafana in depth, Alerting to Slack
+  ### Additional task: Grafana dashboards customization, Telegraf implemetation, alerting to external e-mail
+  ## System prerequisites:
+  + Prepare firewall rules in GCE using terminal on local host for following ports:
+  
+    $ gcloud compute firewall-rules create prometheus-default --allow tcp:9090
+    
+    $ gcloud compute firewall-rules create post-default --allow tcp:5000
+    
+    $ gcloud compute firewall-rules create grafana-default --allow tcp:3000
+    
+    $ gcloud compute firewall-rules create cadvisor-default --allow tcp:8080
+  + Connect to current running GCE instance using command:
+  
+    $ eval $(docker-machine env docker-host)
+    
+    $ docker-machine ssh docker-host
+  ## App testing:
+  + Clone current repository to your environment
+  + Fetch docker images from current GitHub repository using ```make``` command in your terminal
+  + Ensure that GCP instance with installed microservices up and running on:
+  
+    http://docker-host:9292
+  
+    http://docker-host:3000
+    
+    http://docker-host:9090
+    
+    http://docker-host:8080
+  + Current docker-host is: 35.205.143.175
+__________________________________________________________________________________________________________________________
