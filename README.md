@@ -296,6 +296,9 @@ ________________________________________________________________________________
       - 9200:9200
       ```
      ## Additional task tips:
-   + For fixing [Buggy-code](https://github.com/Artemmkin/bugged-code) from Express42 need to correct Docker file in ```troublesrc/buggy-code/comment``` with proper link to comment_db
+     + Before error correction Reddit web app have errors on comment service:
+   ![alt text]([url=https://radikal.ru][img]https://c.radikal.ru/c41/1912/74/ab7f0da3736e.png[/img][/url])
+     + For fixing [Buggy-code](https://github.com/Artemmkin/bugged-code) from Express42 need to correct Docker file in ```troublesrc/buggy-code/comment``` with proper link to comment_db service
+     + Also need to correct ```# Schedule health check function``` section in comment_app.rb file
    ___________________________________________________________________________________________________________________________
     
