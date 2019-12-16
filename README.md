@@ -8,6 +8,7 @@
   ## 5. Gitlab: Deployment & pipeline preparations
   ## 6. Monitoring: Prometheus configuring and deployment
   ## 7. Monitoring: Monitoring system deployment & Alerting
+  ## 8. Logging: Logging and distributed tracing systems
 _______________________________________________________________________________________________________
 ## 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
@@ -261,3 +262,40 @@ ________________________________________________________________________________
     http://docker-host:8080
   + Current docker-host is: 35.205.143.175
 __________________________________________________________________________________________________________________________
+  ## 8. Logging: Logging and distributed tracing systems
+ ### Main issue: ELK and Zipkin tracing systems implementation and tuning
+ ### Additional task: Tuning distributed logs configuration in fluentd.conf file + fixing Reddit app using Zipkin tracing
+   ## App testing:
+  + Clone current repository to your environment
+  + Fetch docker images from current GitHub repository using ```make``` command in your terminal
+  + Ensure that GCP instance with installed microservices up and running on:
+  
+    http://localhost:9292 -> Reddit App
+    
+    http://localhost:5601 -> Kibana logging App
+    
+    http://localhost:9411 -> Zipkin tracing App
+    
+    Current localhost address is: http://35.223.25.123
+     ## ELK installing known issues:
+    + After docker-compose command Kibana web app shows ```Kibana service is not ready yet``` means incufficient instance resources and recommended to use [solution](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html):
+     ```environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      ```
+     ## Additional task tips:
+   + For fixing [Buggy-code](https://github.com/Artemmkin/bugged-code) from Express42 need to correct Docker file in ```troublesrc/buggy-code/comment``` with proper link to comment_db
+   ___________________________________________________________________________________________________________________________
+    
