@@ -3,6 +3,8 @@ services:
 
   post_db:
     image: mongo:3.2
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     volumes:
       - post_db:/data/db
     networks:
@@ -12,20 +14,45 @@ services:
           - post_db
 
   ui:
-    image: ${USER_NAME}/ui:latest
+    image: ${USER_NAME}/ui
+    environment:
+      - POST_SERVICE_HOST=post
+      - POST_SERVICE_PORT=5000
+      - COMMENT_SERVICE_HOST=comment
+      - COMMENT_SERVICE_PORT=9292
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     ports:
-      - ${DOCKER_APP_PORT}:${DOCKER_HOST_PORT}/tcp
+      - "9292:9292"
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.ui
     networks:
       - front_net
+      - back_net
 
   post:
-    image: ${USER_NAME}/post:latest
+    image: ${USER_NAME}/post
+    environment:
+      - POST_DATABASE_HOST=post_db
+      - POST_DATABASE=posts
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
+    depends_on:
+      - post_db
+    ports:
+      - "5000:5000"
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.post
     networks:
       - back_net
       - front_net
 
   comment:
-    image: ${USER_NAME}/comment:latest
+    image: ${USER_NAME}/comment
     networks:
       - back_net
       - front_net
@@ -34,15 +61,4 @@ volumes:
   post_db:
 networks:
   back_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: "${BACK_NET_IP}"
   front_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: "${FRONT_NET_IP}"
-  prometheus_net:
