@@ -311,7 +311,7 @@ ________________________________________________________________________________
   + Clone current repository to your environment
   + Automated deploy used from [pyaillet](https://github.com/Zenika/k8s-on-gce) :
   
-    + Put your adc.json in the app dir (See Gcloud account for details on this file)
+    + Prepare Google API credentials from current project, name as adc.json and put in the app dir
     + Adapt profile file to match your desired region, zone and project
     + Launch ./in.sh, it will build a docker image and launch a container with all needed tools
     + In the container, launch ./create.sh and wait for ~10mins ```
