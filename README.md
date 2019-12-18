@@ -1,14 +1,15 @@
 [![Build Status](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices)
-# SergeyKa-cmd_microservices
+## SergeyKa-cmd_microservices
 ### Contents:
-  ## 1. Docker: First look
-  ## 2. Docker: Containers & Images maintain
-  ## 3. Docker: Images & Microservices
-  ## 4. Docker: Networking & Docker-compose implementation
-  ## 5. Gitlab: Deployment & pipeline preparations
-  ## 6. Monitoring: Prometheus configuring and deployment
-  ## 7. Monitoring: Monitoring system deployment & Alerting
-  ## 8. Logging: Logging and distributed tracing systems
+  ### 1. Docker: First look
+  ### 2. Docker: Containers & Images maintain
+  ### 3. Docker: Images & Microservices
+  ### 4. Docker: Networking & Docker-compose implementation
+  ### 5. Gitlab: Deployment & pipeline preparations
+  ### 6. Monitoring: Prometheus configuring and deployment
+  ### 7. Monitoring: Monitoring system deployment & Alerting
+  ### 8. Logging: Logging and distributed tracing systems
+  ### 9. Kubernetes: First look & Automated deployment implementation
 _______________________________________________________________________________________________________
 ## 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
@@ -295,10 +296,28 @@ ________________________________________________________________________________
     ports:
       - 9200:9200
       ```
-     ## Additional task tips:
+     ### Additional task tips:
      + Before error correction Reddit web app have errors on comment service:
    ![alt text](https://c.radikal.ru/c41/1912/74/ab7f0da3736e.png)
      + For fixing [Buggy-code](https://github.com/Artemmkin/bugged-code) from Express42 need to correct Docker file in ```troublesrc/buggy-code/comment``` with proper link to comment_db service
      + Also need to correct ```# Schedule health check function``` section in comment_app.rb file
    ___________________________________________________________________________________________________________________________
-    
+   ### 9. Kubernetes: First look & Automated deployment implementation
+  ### Main issue: "Kubernetes-the-hard-way" deployment by KesleyHightower
+  ### Additional task: Automated deployment with Kubernetes+Ansible
+  #### System prerequisites:
+  + All 13 steps described in [Guide](https://github.com/kelseyhightower/kubernetes-the-hard-way)
+  #### App testing:
+  + Clone current repository to your environment
+  + Automated deploy used from [pyaillet](https://github.com/Zenika/k8s-on-gce) :
+  
+    + Put your adc.json in the app dir (See Gcloud account for details on this file)
+    + Adapt profile file to match your desired region, zone and project
+    + Launch ./in.sh, it will build a docker image and launch a container with all needed tools
+    + In the container, launch ./create.sh and wait for ~10mins ```
+  + This deployment procedure involves creating Docker machine, with instances deployment using Terraform and finally play Ansible books to instances
+_______________________________________________________________________________________________________________________________
+  
+ 
+  ____________________________________________________________________________________________________________________________
+
