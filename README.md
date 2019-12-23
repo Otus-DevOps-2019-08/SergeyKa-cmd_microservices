@@ -341,5 +341,5 @@ ________________________________________________________________________________
       $ kubectl describe service ui -n dev | grep NodePort
   + Ensure that Microservices up and running on http://35.195.192.255:32092/
   + Run $ kubectl proxy on terminal and try to open [Kubernetes Dashboard](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)
-  [!alt text](https://b.radikal.ru/b01/1912/b9/95ac09960351.png)
+  ![alt text](https://b.radikal.ru/b01/1912/b9/95ac09960351.png)
 ______________________________________________________________________________________________________________________________
