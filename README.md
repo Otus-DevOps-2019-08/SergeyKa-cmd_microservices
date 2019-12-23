@@ -10,6 +10,7 @@
   ### 7. Monitoring: Monitoring system deployment & Alerting
   ### 8. Logging: Logging and distributed tracing systems
   ### 9. Kubernetes: First look & Automated deployment implementation
+ ### 10. Kubernetes: Running microservices on Kubernetes cluster & GKE deployment
 _______________________________________________________________________________________________________
 ## 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
@@ -317,7 +318,30 @@ ________________________________________________________________________________
     + In the container, launch ./create.sh and wait for ~10mins ```
   + This deployment procedure involves creating Docker machine, with instances deployment using Terraform and finally play Ansible books to instances
 _______________________________________________________________________________________________________________________________
-  
- 
-  ____________________________________________________________________________________________________________________________
-
+  ### 10. Kubernetes: Running microservices on Kubernetes cluster & GKE deployment
+  ### Main issue: Cluster prototyping with Minikube & Google Kubernetes Environment deployment
+  ### Additional task: GKE deployment with Terraform
+  #### System prerequisites:
+  + Install current version of [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux)
+  + Install local hypervisor, simply is Virtualbox
+  + Install [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) for local prototyping kubernetes clustering
+  + Preform initial setup for [GKE](https://console.cloud.google.com/kubernetes)
+  + For access to Kubernetes UI dashboard use [tutorial for AWS](https://docs.aws.amazon.com/eks/latest/userguide/dashboard-tutorial.html) (It's working for GKE too)
+  #### App testing:
+  + Clone current repository and run with Terraform environment from ./kubernetes/k8s-on-gce:
+      
+      $ terraform init
+      
+      $ terraform plan
+      
+      $ terraform apply
+  + Find out IP and port or current running Reddit-app by commandlets:
+      
+      $ kubectl get nodes -o wide
+      
+      $ kubectl describe service ui -n dev | grep NodePort
+  + Ensure that Microservices up and running on http://35.195.192.255:32092/
+  + Run $ kubectl proxy on terminal and try to open [Kubernetes Dashboard](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)
+  + Kubernetes Dashboard asks for token which you can use described in [tutorial for AWS](https://docs.aws.amazon.com/eks/latest/userguide/dashboard-tutorial.html)
+  ![alt text](https://b.radikal.ru/b01/1912/b9/95ac09960351.png)
+______________________________________________________________________________________________________________________________
