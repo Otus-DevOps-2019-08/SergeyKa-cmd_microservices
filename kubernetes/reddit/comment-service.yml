@@ -5,7 +5,7 @@ metadata:
   name: comment-service
   labels:
     app: reddit
-    component: post
+    component: comment
 spec:
   ports:
   - port: 9292
@@ -13,4 +13,4 @@ spec:
     targetPort: 9292
   selector:
     app: reddit
-    component: comment-service
+    component: comment
