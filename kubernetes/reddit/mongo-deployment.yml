@@ -36,5 +36,3 @@ spec:
         gcePersistentDisk:
           pdName: auriga-mongo-persistentdisk
           fsType: ext4
-
-
