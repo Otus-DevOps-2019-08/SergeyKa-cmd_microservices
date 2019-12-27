@@ -366,10 +366,10 @@ ________________________________________________________________________________
    + Push this files to Kubernetes cluster:
    
      $ kubectl create secret tls ui-ingress --key tls.key --cert tls.crt -n dev
-          Perform my-secret.yml file with tls.key and tls.crt keys
+   + Create my-secret.yml file with tls.key and tls.crt keys
   #### App testing:
    + Check up and running Reddit-app on https://35.244.170.122/
-   + Check out that PersistentVolume disks are created correctly:
+   + Check out that PersistentVolume disks are created correctly in [GCE](https://console.cloud.google.com/compute/disks):
    
    ![alt text](https://c.radikal.ru/c39/1912/0a/a63bcfdc2c5f.png)
  #### Additional task tips:
