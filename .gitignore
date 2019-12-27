@@ -15,3 +15,5 @@ vault.key
 .molecule
 *.env
 *.toml
+*.crt
+*.key
