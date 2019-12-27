@@ -11,6 +11,7 @@
   ### 8. Logging: Logging and distributed tracing systems
   ### 9. Kubernetes: First look & Automated deployment implementation
  ### 10. Kubernetes: Running microservices on Kubernetes cluster & GKE deployment
+ ### 11. Kubernetes: Endpoint communications & Data storing policy
 _______________________________________________________________________________________________________
 ## 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
@@ -345,3 +346,33 @@ ________________________________________________________________________________
   + Kubernetes Dashboard asks for token which you can use described in [tutorial for AWS](https://docs.aws.amazon.com/eks/latest/userguide/dashboard-tutorial.html)
   ![alt text](https://b.radikal.ru/b01/1912/b9/95ac09960351.png)
 ______________________________________________________________________________________________________________________________
+  ### 11. Kubernetes: Endpoint communications & Data storing policy
+  ### Main issue: Understanding of endpoints networking and PersistentVolumeClaim implement
+  ### Additional task: TLS implement with YAML manifest
+  #### System prerequisites:
+   + Clone current repository and deploy sevices for interconnection between them
+   + Switch to DEV namespace using:
+    
+     $ kubectl apply -f ./kubernetes/reddit/dev-namespace.yml
+   + Deploy all components running manifests:
+   
+     $ kubectl apply -f ./kubernetes/reddit/ -n dev
+   + Get current address of ingress controller by cmdlet:
+    
+     $ kubectl get ingress -n dev
+   + For using TLS connection to Reddit-app create ```tls.key``` and ```tls.crt``` using ingress IP as CN in openssl:
+     
+     $ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=ingress_IP"
+   + Push this files to Kubernetes cluster:
+   
+     $ kubectl create secret tls ui-ingress --key tls.key --cert tls.crt -n dev
+          Perform my-secret.yml file with tls.key and tls.crt keys
+  #### App testing:
+   + Check up and running Reddit-app on https://35.244.170.122/
+   + Check out that PersistentVolume disks are created correctly:
+   
+   ![alt text](https://c.radikal.ru/c39/1912/0a/a63bcfdc2c5f.png)
+ #### Additional task tips:
+   + For preparing ```my-secret.yml``` manifest check [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
+_____________________________________________________________________________________________________________________________
+      
