@@ -1,0 +1,37 @@
+---
+service:
+  internalPort: 9292
+  externalPort: 9292
+
+image:
+  repository: sergeykacmd/ui
+  tag: latest
+
+ingress:
+  class: nginx
+
+postHost:
+postPort:
+commentHost:
+commentPort:
+
+comment:
+  image:
+    repository: sergeykacmd/comment
+    tag: latest
+  service:
+    externalPort: 9292
+
+post:
+  image:
+    repository: sergeykacmd/post
+    tag: latest
+  service:
+    externalPort: 5000
+
+ui:
+  image:
+    repository: sergeykacmd/ui
+    tag: latest
+  service:
+    externalPort: 9292
