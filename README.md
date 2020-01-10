@@ -12,6 +12,7 @@
   ### 9. Kubernetes: First look & Automated deployment implementation
  ### 10. Kubernetes: Running microservices on Kubernetes cluster & GKE deployment
  ### 11. Kubernetes: Endpoint communications & Data storing policy
+ ### 12. Kubernetes: Helm overview & Kubernetes + Gitlab CI/CD
 _______________________________________________________________________________________________________
 ## 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
@@ -375,4 +376,35 @@ ________________________________________________________________________________
  #### Additional task tips:
    + For preparing ```my-secret.yml``` manifest check [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 _____________________________________________________________________________________________________________________________
-      
+  ### 12. Kubernetes: Helm overview & Kubernetes + Gitlab CI/CD
+  ### Main issue: Helm packet manager deployment & Gitlab on GKE deployment
+  ### Additional task: Modifying of build and deploy pipelines for production release automation
+  #### System prerequisites:
+   + Install helm from [current source](https://github.com/helm/helm/releases)
+   + Prepare for Kubernetes cluster on GKE as follows:
+    + n1-standard-2 node (7.5Gb RAM, 2vCPU, 40GB HDD storage, RBAC=off, Legacy access=on)
+    + Login to GKE with current credentials
+    + Push command as follows:
+    
+      $ helm install gitlab . -f ./kubernetes/Charts/gitlab-omnibus/values.yaml
+   + Clone current repository to your local environment
+   + Add record to local /etc/hosts file with string:
+   
+     (current Gitlab IP) gitlab-gitlab staging production
+  #### App testing:
+   + Check up and running Gitlab environment http://gitlab-gitlab
+   + Push repository to Gitlab from ```./Gitlab-ci/comment/``` ```./Gitlab-ci/post-py/``` ```./Gitlab-ci/ui/``` ```./Gitlab-ci/reddit-deploy/``` using commands:
+    
+    $ git add .
+    
+    $ git commit -m "comment action"
+    
+    $ git push origin master
+   + Check that all pipelines are passed correctly:
+   ![alt text](https://d.radikal.ru/d06/2001/39/f320a1535e4a.png)
+   ![alt text](https://a.radikal.ru/a04/2001/88/fd997bff1d16.png)
+   ![alt text](https://b.radikal.ru/b23/2001/f5/4bb3d990b448.png)
+   ![alt text](https://b.radikal.ru/b03/2001/4f/9265e4a8befe.png)
+_____________________________________________________________________________________________________________________________
+
+     
