@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+name: elasticsearch
+description: OTUS EFK via helm implement
+version: 1.0.0
+maintainers:
+   - name: User
+     email: contoso@mail.com
+appVersion: 1.0
