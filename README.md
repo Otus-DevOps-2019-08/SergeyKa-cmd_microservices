@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices)
 ## SergeyKa-cmd_microservices
 ### Contents:
-  ### 1. Docker: First look
-  ### 2. Docker: Containers & Images maintain
+  ### [1. Docker: First look](#1. Docker: First look)
+  ### [2. Docker: Containers & Images maintain](#2. Docker: Containers & Images maintain)
   ### 3. Docker: Images & Microservices
   ### 4. Docker: Networking & Docker-compose implementation
   ### 5. Gitlab: Deployment & pipeline preparations
@@ -13,6 +13,7 @@
  ### 10. Kubernetes: Running microservices on Kubernetes cluster & GKE deployment
  ### 11. Kubernetes: Endpoint communications & Data storing policy
  ### 12. Kubernetes: Helm overview & Kubernetes + Gitlab CI/CD
+ ### 13. Kubernetes: Monitoring & Logging systems in K8s. Operators: Prometheus
 _______________________________________________________________________________________________________
 ## 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
@@ -406,5 +407,67 @@ ________________________________________________________________________________
    ![alt text](https://b.radikal.ru/b23/2001/f5/4bb3d990b448.png)
    ![alt text](https://b.radikal.ru/b03/2001/4f/9265e4a8befe.png)
 _____________________________________________________________________________________________________________________________
-
+  ### 13. Kubernetes: Monitoring & Logging systems in K8s. Operators: Prometheus
+  ### Main issue: Customization prometheus monitoring & Grafana visualization. EFK implementation
+  ### Additional task: Alertmanager implementation + Prometheus Operator rollout + EFK rollout using helm
+  #### System prerequisites:
+   + Prepare for Kubernetes cluster on GKE as follows:
+    + n1-standard-2 node (7.5Gb RAM, 2vCPU, Stackdriver logging=off, RBAC=off, Legacy access=on)
+    + g1-small two nodes (1,5 Gb RAM, 1vCPU, Stackdriver logging=off, RBAC=off, Legacy access=on)
+    + Login to GKE with current credentials
+    + Install nginx-ingress on instance with commands as follows:
+    
+      $ helm install stable/nginx-ingress --name nginx
+    + Check out External IP and add record to /etc/hosts on local machine:
+    
+      $ kubectl get svc
+      
+      $ ```echo "(external IP) reddit reddit-prometheus reddit-grafana reddit-non-prod production reddit-kibana staging prod" >> /etc/hosts```
+   + Prepare for new staging and production kubectl namespaces:
+   
+     $ kubectl create namespace staging
+     
+     $ kubectl create namespace production    
+   + Clone current repository to your local environment
+   + Add for stable helm repo:
+   
+     $ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+   + Add label to n1-standard-2 node in big-pool for ELK purposes instance:
+   
+     $ kubectl label node (instance name from big-pool) elastichost=true
+  #### App testing:
+   + Using current repository on local environment run buhch of helm charts:
+     $ helm upgrade prom . -f /kubernetes/Charts/prometheus/custom_values.yml --install
+   
+     $ helm upgrade reddit-test ./reddit —install
+     
+     $ helm upgrade production --namespace production ./reddit --install
+     
+     $ helm upgrade staging --namespace staging ./reddit —install
+   + Run for stable prometheus-operator repository and customised YAML file:
+     
+     $ helm install --name prom-operator stable/prometheus-operator
+     
+     $ kubectl apply -f kubernetes/prom-operator/prometheus-operator-serviceMonitor.yml
+   + Run helm chart file for Elastic+Fluentd+Kibana rollout:
+     
+     $ kubectl apply -f kubernetes/Charts/helm-to-efk
+     
+     ```$ $ helm upgrade --install kibana stable/kibana \
+        --set "ingress.enabled=true" \
+        --set "ingress.hosts={reddit-kibana}" \
+        --set "env.ELASTICSEARCH_URL=http://elasticsearch-logging:9200" \
+        --version 0.1.1```
+   + Check for Kibana and try out to search string ```kubernetes.labels.component:post OR kubernetes.labels.component:comment OR kubernetes.labels.component:ui`` 
+   on Discover section:
+   
+   ![alt text](https://c.radikal.ru/c05/2001/19/1cd51f3c807d.png)
+   + Check up and running by IP (http://34.77.130.129/):
+      
+      http://reddit-prometheus
+      
+      http://reddit-grafana
+      
+      http://reddit-kibana
+------------------------------ This-is-the-end-My-only-Friend------------------------------------
      
