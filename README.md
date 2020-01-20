@@ -1,7 +1,8 @@
 [![Build Status](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices)
 ## SergeyKa-cmd_microservices
 ### Contents:
-  [1. Docker: First look](#1. Docker: First look)
+  [1. Docker: First look](###1. Docker: First look)
+  
   [2. Docker: Containers & Images maintain](#2. Docker: Containers & Images maintain)
   ### 3. Docker: Images & Microservices
   ### 4. Docker: Networking & Docker-compose implementation
@@ -15,7 +16,7 @@
  ### 12. Kubernetes: Helm overview & Kubernetes + Gitlab CI/CD
  ### 13. Kubernetes: Monitoring & Logging systems in K8s. Operators: Prometheus
 _______________________________________________________________________________________________________
-## 1. Docker: First look
+### 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
 ### Additional task: docker container and docker image files comparison
 ## System prerequisites
