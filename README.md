@@ -1,9 +1,8 @@
 [![Build Status](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices)
 ## SergeyKa-cmd_microservices
 ### Contents:
-  [1. Docker: First look](###1. Docker: First look)
-  
-  [2. Docker: Containers & Images maintain](#2. Docker: Containers & Images maintain)
+  ### [1. Docker: First look](#1.-docker:-first-look)  
+  ### 2. Docker: Containers & Images maintain
   ### 3. Docker: Images & Microservices
   ### 4. Docker: Networking & Docker-compose implementation
   ### 5. Gitlab: Deployment & pipeline preparations
@@ -16,7 +15,7 @@
  ### 12. Kubernetes: Helm overview & Kubernetes + Gitlab CI/CD
  ### 13. Kubernetes: Monitoring & Logging systems in K8s. Operators: Prometheus
 _______________________________________________________________________________________________________
-### 1. Docker: First look
+## 1. Docker: First look
 ### Main issue: docker host & image creation, docker hub registry
 ### Additional task: docker container and docker image files comparison
 ## System prerequisites
@@ -109,7 +108,7 @@ docker images
   + Ensure that your Monolith Reddit up and running http://:9292
   + [Monolith Reddit](http://35.195.87.92:9292/) - to test my solution
 __________________________________________________________________________________
- # 4. Docker: Networking & Docker-compose implementation
+ ## 4. Docker: Networking & Docker-compose implementation
  ### Main issue: Network features discovering in docker, docker-compose implementation 
  ### Additional task: Docker-compose-override file creation
  ## System prerequisites:
@@ -307,7 +306,7 @@ ________________________________________________________________________________
      + For fixing [Buggy-code](https://github.com/Artemmkin/bugged-code) from Express42 need to correct Docker file in ```troublesrc/buggy-code/comment``` with proper link to comment_db service
      + Also need to correct ```# Schedule health check function``` section in comment_app.rb file
    ___________________________________________________________________________________________________________________________
-   ### 9. Kubernetes: First look & Automated deployment implementation
+   ## 9. Kubernetes: First look & Automated deployment implementation
   ### Main issue: "Kubernetes-the-hard-way" deployment by KesleyHightower
   ### Additional task: Automated deployment with Kubernetes+Ansible
   #### System prerequisites:
@@ -322,7 +321,7 @@ ________________________________________________________________________________
     + In the container, launch ./create.sh and wait for ~10mins ```
   + This deployment procedure involves creating Docker machine, with instances deployment using Terraform and finally play Ansible books to instances
 _______________________________________________________________________________________________________________________________
-  ### 10. Kubernetes: Running microservices on Kubernetes cluster & GKE deployment
+  ## 10. Kubernetes: Running microservices on Kubernetes cluster & GKE deployment
   ### Main issue: Cluster prototyping with Minikube & Google Kubernetes Environment deployment
   ### Additional task: GKE deployment with Terraform
   #### System prerequisites:
@@ -349,7 +348,7 @@ ________________________________________________________________________________
   + Kubernetes Dashboard asks for token which you can use described in [tutorial for AWS](https://docs.aws.amazon.com/eks/latest/userguide/dashboard-tutorial.html)
   ![alt text](https://b.radikal.ru/b01/1912/b9/95ac09960351.png)
 ______________________________________________________________________________________________________________________________
-  ### 11. Kubernetes: Endpoint communications & Data storing policy
+  ## 11. Kubernetes: Endpoint communications & Data storing policy
   ### Main issue: Understanding of endpoints networking and PersistentVolumeClaim implement
   ### Additional task: TLS implement with YAML manifest
   #### System prerequisites:
@@ -378,7 +377,7 @@ ________________________________________________________________________________
  #### Additional task tips:
    + For preparing ```my-secret.yml``` manifest check [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 _____________________________________________________________________________________________________________________________
-  ### 12. Kubernetes: Helm overview & Kubernetes + Gitlab CI/CD
+  ## 12. Kubernetes: Helm overview & Kubernetes + Gitlab CI/CD
   ### Main issue: Helm packet manager deployment & Gitlab on GKE deployment
   ### Additional task: Modifying of build and deploy pipelines for production release automation
   #### System prerequisites:
@@ -409,7 +408,7 @@ ________________________________________________________________________________
    ![alt text](https://b.radikal.ru/b23/2001/f5/4bb3d990b448.png)
    ![alt text](https://b.radikal.ru/b03/2001/4f/9265e4a8befe.png)
 _____________________________________________________________________________________________________________________________
-  ### 13. Kubernetes: Monitoring & Logging systems in K8s. Operators: Prometheus
+  ## 13. Kubernetes: Monitoring & Logging systems in K8s. Operators: Prometheus
   ### Main issue: Customization prometheus monitoring & Grafana visualization. EFK implementation
   ### Additional task: Alertmanager implementation + Prometheus Operator rollout + EFK rollout using helm
   #### System prerequisites:
@@ -473,6 +472,6 @@ ________________________________________________________________________________
       http://reddit-grafana
       
       http://reddit-kibana
-      
-______________________________________________ This-is-the-end-My-only-Friend___________________________________________________
+
+________________________________________________________________________________________________________________________
      
