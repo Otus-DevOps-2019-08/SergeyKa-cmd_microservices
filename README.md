@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices)
 ## SergeyKa-cmd_microservices
 ### Contents:
-  ### [1. Docker: First look](#1. Docker: First look)
-  ### [2. Docker: Containers & Images maintain](#2. Docker: Containers & Images maintain)
+  [1. Docker: First look](#1. Docker: First look)
+  [2. Docker: Containers & Images maintain](#2. Docker: Containers & Images maintain)
   ### 3. Docker: Images & Microservices
   ### 4. Docker: Networking & Docker-compose implementation
   ### 5. Gitlab: Deployment & pipeline preparations
@@ -383,6 +383,7 @@ ________________________________________________________________________________
   #### System prerequisites:
    + Install helm from [current source](https://github.com/helm/helm/releases)
    + Prepare for Kubernetes cluster on GKE as follows:
+    
     + n1-standard-2 node (7.5Gb RAM, 2vCPU, 40GB HDD storage, RBAC=off, Legacy access=on)
     + Login to GKE with current credentials
     + Push command as follows:
@@ -412,10 +413,11 @@ ________________________________________________________________________________
   ### Additional task: Alertmanager implementation + Prometheus Operator rollout + EFK rollout using helm
   #### System prerequisites:
    + Prepare for Kubernetes cluster on GKE as follows:
+    
     + n1-standard-2 node (7.5Gb RAM, 2vCPU, Stackdriver logging=off, RBAC=off, Legacy access=on)
     + g1-small two nodes (1,5 Gb RAM, 1vCPU, Stackdriver logging=off, RBAC=off, Legacy access=on)
     + Login to GKE with current credentials
-    + Install nginx-ingress on instance with commands as follows:
+   + Install nginx-ingress on instance with commands as follows:
     
       $ helm install stable/nginx-ingress --name nginx
     + Check out External IP and add record to /etc/hosts on local machine:
@@ -437,6 +439,7 @@ ________________________________________________________________________________
      $ kubectl label node (instance name from big-pool) elastichost=true
   #### App testing:
    + Using current repository on local environment run buhch of helm charts:
+   
      $ helm upgrade prom . -f /kubernetes/Charts/prometheus/custom_values.yml --install
    
      $ helm upgrade reddit-test ./reddit —install
@@ -469,5 +472,6 @@ ________________________________________________________________________________
       http://reddit-grafana
       
       http://reddit-kibana
------------------------------- This-is-the-end-My-only-Friend------------------------------------
+      
+______________________________________________ This-is-the-end-My-only-Friend___________________________________________________
      
