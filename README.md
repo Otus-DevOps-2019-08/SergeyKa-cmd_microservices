@@ -1,20 +1,33 @@
 [![Build Status](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices.svg?branch=master)](https://travis-ci.com/Otus-DevOps-2019-08/SergeyKa-cmd_microservices)
 ## SergeyKa-cmd_microservices
 ### Contents:
-  ### 1. Docker: First look
-  ### 2. Docker: Containers & Images maintain
-  ### 3. Docker: Images & Microservices
-  ### 4. Docker: Networking & Docker-compose implementation
-  ### 5. Gitlab: Deployment & pipeline preparations
-  ### 6. Monitoring: Prometheus configuring and deployment
-  ### 7. Monitoring: Monitoring system deployment & Alerting
-  ### 8. Logging: Logging and distributed tracing systems
-  ### 9. Kubernetes: First look & Automated deployment implementation
- ### 10. Kubernetes: Running microservices on Kubernetes cluster & GKE deployment
- ### 11. Kubernetes: Endpoint communications & Data storing policy
- ### 12. Kubernetes: Helm overview & Kubernetes + Gitlab CI/CD
+   [1 Docker at first look](#1-docker-at-first-look)
+  
+   [2 Docker containers and Images maintain](#2-docker-containers-and-images-maintain)
+  
+   [3 Docker images and Microservices](#3-docker-images-and-microservices)
+   
+   [4 Docker networking and docker-compose implementation](#4-docker-networking-and-docker-compose-implementation)
+   
+   [5 Gitlab deployment and pipeline preparations](#5-gitlab-deployment-and-pipeline-preparations)
+   
+   [6 Monitoring with Prometheus, configuring and deployment](#6-monitoring-with-prometheus-configuring-and-deployment)
+   
+   [7 Monitoring system deployment and Alerting](#7-monitoring-system-deployment-and-alerting)
+   
+   [8 Logging and distributed tracing systems](#8-logging-and-distributed-tracing-systems)
+   
+   [9 Kubernetes at first look and Automated deployment implementation](#9-kubernetes-at-first-look-and-automated-deployment-implementation)
+   
+   [10 Running k8s microservices on Minikube cluster and GKE deployment](#10-running-k8s-microservices-on-minikube-cluster-and-gke-deployment)
+   
+   [11 K8s endpoint communications and data storing policy](#11-k8s-endpoint-communications-and-data-storing-policy)
+   
+   [12 K8s helm overview and Gitlab CI/CD implementation](#12-k8s-helm-overview-and-gitlab-ci-cd-implementation)
+   
+   [13 K8s monitoring and Logging systems implementation](#13-k8s-monitoring-and-logging-systems-implementation)
 _______________________________________________________________________________________________________
-## 1. Docker: First look
+## 1 Docker at first look
 ### Main issue: docker host & image creation, docker hub registry
 ### Additional task: docker container and docker image files comparison
 ## System prerequisites
@@ -32,7 +45,7 @@ ________________________________________________________________________________
   
     $docker images > docker-1.log
 _____________________________________________________________________________________________________________________________
-## 2. Docker: Containers & Images maintain
+## 2 Docker containers and Images maintain
 ### Main issue: Docker integration to GCE and Docker Hub
 ### Additional task: Up and running instances in GCE using Packer & Terraform & Ansible with docker image from Docker Hub
 ## System prerequisites:
@@ -53,7 +66,7 @@ ________________________________________________________________________________
     
     $ansible-playbook playbooks/site.yml
 _________________________________________________________________________________________________
-## 3. Docker: Images & Microservices
+## 3 Docker images and Microservices
 ### Main issue: Decomposition of application for microservice environment
 ### Additional task: Tuning current dockerfiles: changing network aliases; using Alpine Linux packages for post, comment and ui.
 ## System prerequisites:
@@ -107,7 +120,7 @@ docker images
   + Ensure that your Monolith Reddit up and running http://:9292
   + [Monolith Reddit](http://35.195.87.92:9292/) - to test my solution
 __________________________________________________________________________________
- # 4. Docker: Networking & Docker-compose implementation
+ ## 4 Docker networking and Docker compose implementation
  ### Main issue: Network features discovering in docker, docker-compose implementation 
  ### Additional task: Docker-compose-override file creation
  ## System prerequisites:
@@ -154,7 +167,7 @@ src_ui_1        puma --debug -w 2             Up      0.0.0.0:9292->9292/tcp
  ```
   + All docker-compose entity have project related pefix (at this point is "src_") which is the name of current project directory.
 _______________________________________________________________________________________________
-  ## 5. Gitlab: Deployment & pipeline preparations
+  ## 5 Gitlab deployment and pipeline preparations
   ### Main issue: Docker-based Gitlab deployment on GCP instance, pipeline implementation
   ### Additional task: Design and implement scalable solution for Gitlab Runner in one configuration file & Chat Ops implement
   ## System prerequisites:
@@ -211,7 +224,7 @@ ________________________________________________________________________________
    + For automation deployment of numerous Gitlab Ci Runner we're used config.toml.example file (config.toml was excluded with .gitignore due to secret information) related to this [Manual](https://habr.com/en/post/449910/)
    + For Chat Ops implementation (Gitlab+Slack) we're used this [Simple manual](https://docs.gitlab.com/ee/user/project/integrations/slack.html)
    ___________________________________________________________________________________________________________________
-   ## 6. Monitoring: Prometheus configuring and deployment
+   ## 6 Monitoring with Prometheus configuring and deployment
   ### Main issue: Deployment Prometheus and monitoring implementation for Reddit microservices
   ### Additional task:  Using custom exporters for metrics capturing & Prepare Makefile for services automation deployment
   ## System prerequisites:
@@ -234,7 +247,7 @@ ________________________________________________________________________________
    + Information regarding how to use [Google Cloudprober](https://hub.docker.com/r/cloudprober/cloudprober)
    + [Bitnami MongoDB exporter on DockerHub](https://hub.docker.com/r/bitnami/mongodb-exporter)
    __________________________________________________________________________________________________________________________
-   ## 7. Monitoring: Monitoring system deployment & Alerting
+   ## 7 Monitoring system deployment and Alerting
   ### Main issue: Monitoring systems implement: cAdvisor, Grafana in depth, Alerting to Slack
   ### Additional task: Grafana dashboards customization, Telegraf implemetation, alerting to external e-mail
   ## System prerequisites:
@@ -266,7 +279,7 @@ ________________________________________________________________________________
     http://docker-host:8080
   + Current docker-host is: 35.205.143.175
 __________________________________________________________________________________________________________________________
-  ## 8. Logging: Logging and distributed tracing systems
+  ## 8 Logging and distributed tracing systems
  ### Main issue: ELK and Zipkin tracing systems implementation and tuning
  ### Additional task: Tuning distributed logs configuration in fluentd.conf file + fixing Reddit app using Zipkin tracing
    ## App testing:
@@ -305,7 +318,7 @@ ________________________________________________________________________________
      + For fixing [Buggy-code](https://github.com/Artemmkin/bugged-code) from Express42 need to correct Docker file in ```troublesrc/buggy-code/comment``` with proper link to comment_db service
      + Also need to correct ```# Schedule health check function``` section in comment_app.rb file
    ___________________________________________________________________________________________________________________________
-   ### 9. Kubernetes: First look & Automated deployment implementation
+   ## 9 Kubernetes at first look and Automated deployment implementation
   ### Main issue: "Kubernetes-the-hard-way" deployment by KesleyHightower
   ### Additional task: Automated deployment with Kubernetes+Ansible
   #### System prerequisites:
@@ -320,7 +333,7 @@ ________________________________________________________________________________
     + In the container, launch ./create.sh and wait for ~10mins ```
   + This deployment procedure involves creating Docker machine, with instances deployment using Terraform and finally play Ansible books to instances
 _______________________________________________________________________________________________________________________________
-  ### 10. Kubernetes: Running microservices on Kubernetes cluster & GKE deployment
+  ## 10 Running k8s microservices on Minikube cluster and GKE deployment
   ### Main issue: Cluster prototyping with Minikube & Google Kubernetes Environment deployment
   ### Additional task: GKE deployment with Terraform
   #### System prerequisites:
@@ -347,7 +360,7 @@ ________________________________________________________________________________
   + Kubernetes Dashboard asks for token which you can use described in [tutorial for AWS](https://docs.aws.amazon.com/eks/latest/userguide/dashboard-tutorial.html)
   ![alt text](https://b.radikal.ru/b01/1912/b9/95ac09960351.png)
 ______________________________________________________________________________________________________________________________
-  ### 11. Kubernetes: Endpoint communications & Data storing policy
+  ## 11 K8s endpoint communications and data storing policy
   ### Main issue: Understanding of endpoints networking and PersistentVolumeClaim implement
   ### Additional task: TLS implement with YAML manifest
   #### System prerequisites:
@@ -376,12 +389,13 @@ ________________________________________________________________________________
  #### Additional task tips:
    + For preparing ```my-secret.yml``` manifest check [Kubernetes Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 _____________________________________________________________________________________________________________________________
-  ### 12. Kubernetes: Helm overview & Kubernetes + Gitlab CI/CD
+  ## 12 K8s helm overview and Gitlab CI-CD implementation
   ### Main issue: Helm packet manager deployment & Gitlab on GKE deployment
   ### Additional task: Modifying of build and deploy pipelines for production release automation
   #### System prerequisites:
    + Install helm from [current source](https://github.com/helm/helm/releases)
    + Prepare for Kubernetes cluster on GKE as follows:
+    
     + n1-standard-2 node (7.5Gb RAM, 2vCPU, 40GB HDD storage, RBAC=off, Legacy access=on)
     + Login to GKE with current credentials
     + Push command as follows:
@@ -406,5 +420,70 @@ ________________________________________________________________________________
    ![alt text](https://b.radikal.ru/b23/2001/f5/4bb3d990b448.png)
    ![alt text](https://b.radikal.ru/b03/2001/4f/9265e4a8befe.png)
 _____________________________________________________________________________________________________________________________
-
+  ## 13 K8s monitoring and Logging systems implementation
+  ### Main issue: Customization prometheus monitoring & Grafana visualization. EFK implementation
+  ### Additional task: Alertmanager implementation + Prometheus Operator rollout + EFK rollout using helm
+  #### System prerequisites:
+   + Prepare for Kubernetes cluster on GKE as follows:
+    
+    + n1-standard-2 node (7.5Gb RAM, 2vCPU, Stackdriver logging=off, RBAC=off, Legacy access=on)
+    + g1-small two nodes (1,5 Gb RAM, 1vCPU, Stackdriver logging=off, RBAC=off, Legacy access=on)
+    + Login to GKE with current credentials
+   + Install nginx-ingress on instance with commands as follows:
+    
+      $ helm install stable/nginx-ingress --name nginx
+    + Check out External IP and add record to /etc/hosts on local machine:
+    
+      $ kubectl get svc
+      
+      $ ```echo "(external IP) reddit reddit-prometheus reddit-grafana reddit-non-prod production reddit-kibana staging prod" >> /etc/hosts```
+   + Prepare for new staging and production kubectl namespaces:
+   
+     $ kubectl create namespace staging
      
+     $ kubectl create namespace production    
+   + Clone current repository to your local environment
+   + Add for stable helm repo:
+   
+     $ helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+   + Add label to n1-standard-2 node in big-pool for ELK purposes instance:
+   
+     $ kubectl label node (instance name from big-pool) elastichost=true
+  #### App testing:
+   + Using current repository on local environment run buhch of helm charts:
+   
+     $ helm upgrade prom . -f /kubernetes/Charts/prometheus/custom_values.yml --install
+   
+     $ helm upgrade reddit-test ./reddit —install
+     
+     $ helm upgrade production --namespace production ./reddit --install
+     
+     $ helm upgrade staging --namespace staging ./reddit —install
+   + Run for stable prometheus-operator repository and customised YAML file:
+     
+     $ helm install --name prom-operator stable/prometheus-operator
+     
+     $ kubectl apply -f kubernetes/prom-operator/prometheus-operator-serviceMonitor.yml
+   + Run helm chart file for Elastic+Fluentd+Kibana rollout:
+     
+     $ kubectl apply -f kubernetes/Charts/helm-to-efk
+     
+     ```$ $ helm upgrade --install kibana stable/kibana \
+        --set "ingress.enabled=true" \
+        --set "ingress.hosts={reddit-kibana}" \
+        --set "env.ELASTICSEARCH_URL=http://elasticsearch-logging:9200" \
+        --version 0.1.1```
+   + Check for Kibana and try out to search string ```kubernetes.labels.component:post OR kubernetes.labels.component:comment OR kubernetes.labels.component:ui`` 
+   on Discover section:
+   
+   ![alt text](https://c.radikal.ru/c05/2001/19/1cd51f3c807d.png)
+   + Check up and running by IP (http://34.77.130.129/):
+      
+      http://reddit-prometheus
+      
+      http://reddit-grafana
+      
+      http://reddit-kibana
+
+________________________________________________________________________________________________________________________
+            This is the end My only friend
